@@ -470,10 +470,14 @@
   },
   "title": "ModuleFederationPluginOptions",
   "type": "object",
-  "additionalProperties": false,
+  "additionalProperties": true,
   "properties": {
     "exposes": {
       "$ref": "#/definitions/Exposes"
+    },
+    "isHostOnly": {
+      "description": "Forces this module to not pull modules from other remotes, and creates a more centralized module that will load remotes when necessary.",
+      "type": "boolean"
     },
     "filename": {
       "description": "The filename of the container as relative path inside the `output.path` directory.",
