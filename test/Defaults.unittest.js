@@ -9,9 +9,7 @@ const stripAnsi = require("strip-ansi");
  * @param {string} str String to quote
  * @returns {string} Escaped string
  */
-const quoteMeta = str => {
-	return str.replace(/[-[\]\\/{}()*+?.^$|]/g, "\\$&");
-};
+const quoteMeta = str => str.replace(/[-[\]\\/{}()*+?.^$|]/g, "\\$&");
 
 const cwd = process.cwd();
 const cwdRegExp = new RegExp(
@@ -120,7 +118,7 @@ describe("snapshots", () => {
 		    "environment": Object {
 		      "arrowFunction": true,
 		      "asyncFunction": true,
-		      "bigIntLiteral": undefined,
+		      "bigIntLiteral": true,
 		      "const": true,
 		      "destructuring": true,
 		      "document": true,
@@ -352,7 +350,7 @@ describe("snapshots", () => {
 		    "environment": Object {
 		      "arrowFunction": true,
 		      "asyncFunction": true,
-		      "bigIntLiteral": undefined,
+		      "bigIntLiteral": true,
 		      "const": true,
 		      "destructuring": true,
 		      "document": true,
@@ -685,10 +683,10 @@ describe("snapshots", () => {
 	};
 
 	test("empty config", {}, e =>
-		e.toMatchInlineSnapshot(`Compared values have no visual difference.`)
+		e.toMatchInlineSnapshot("Compared values have no visual difference.")
 	);
 	test("none mode", { mode: "none" }, e =>
-		e.toMatchInlineSnapshot(`Compared values have no visual difference.`)
+		e.toMatchInlineSnapshot("Compared values have no visual difference.")
 	);
 	test("no mode provided", { mode: undefined }, e =>
 		e.toMatchInlineSnapshot(`
@@ -922,7 +920,7 @@ describe("snapshots", () => {
 		+     "outputModule": true,
 		@@ ... @@
 		-   "externalsType": "var",
-		+   "externalsType": "module",
+		+   "externalsType": "module-import",
 		@@ ... @@
 		-       "dynamicImport": undefined,
 		-       "dynamicImportInWorker": undefined,
@@ -1747,7 +1745,7 @@ describe("snapshots", () => {
 	`)
 	);
 	test("ecmaVersion", { output: { ecmaVersion: 2020 } }, e =>
-		e.toMatchInlineSnapshot(`Compared values have no visual difference.`)
+		e.toMatchInlineSnapshot("Compared values have no visual difference.")
 	);
 	test("single runtimeChunk", { optimization: { runtimeChunk: "single" } }, e =>
 		e.toMatchInlineSnapshot(`
@@ -2069,7 +2067,7 @@ describe("snapshots", () => {
 			@@ ... @@
 			-       "arrowFunction": true,
 			-       "asyncFunction": true,
-			-       "bigIntLiteral": undefined,
+			-       "bigIntLiteral": true,
 			-       "const": true,
 			-       "destructuring": true,
 			+       "arrowFunction": false,
@@ -2103,7 +2101,7 @@ describe("snapshots", () => {
 			@@ ... @@
 			-       "arrowFunction": true,
 			-       "asyncFunction": true,
-			-       "bigIntLiteral": undefined,
+			-       "bigIntLiteral": true,
 			-       "const": true,
 			-       "destructuring": true,
 			+       "arrowFunction": false,

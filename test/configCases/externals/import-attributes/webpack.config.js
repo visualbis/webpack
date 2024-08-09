@@ -26,7 +26,7 @@ module.exports = {
 							stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL
 						},
 						() => {
-							[
+							for (const filename of [
 								"static-package.json",
 								"static-package-str.json",
 								"dynamic-package.json",
@@ -36,14 +36,14 @@ module.exports = {
 								"./nested/pkg.json",
 								"re-export.json",
 								"re-export-directly.json"
-							].forEach(filename => {
+							]) {
 								const resolvedFilename = path.resolve(__dirname, filename);
 								const content = fs.readFileSync(resolvedFilename);
 								compilation.emitAsset(
 									filename.replace(/\.\/nested\//, ""),
 									new RawSource(content)
 								);
-							});
+							}
 						}
 					);
 				});
@@ -60,6 +60,10 @@ module.exports = {
 		"./pkg.json": "import ./pkg.json",
 		"./pkg": "import ./pkg",
 		"./re-export.json": "module ./re-export.json",
-		"./re-export-directly.json": "module ./re-export-directly.json"
+		"./re-export-directly.json": "module ./re-export-directly.json",
+		"./static-package-module-import.json":
+			"module-import ./static-package.json",
+		"./dynamic-package-module-import.json":
+			"module-import ./dynamic-package.json"
 	}
 };
